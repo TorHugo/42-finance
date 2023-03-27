@@ -3,6 +3,7 @@ package com.br.finance.service.impl;
 import com.br.finance.exception.impl.DataBaseException;
 import com.br.finance.mapper.CategoryMapper;
 import com.br.finance.model.dto.CategoryDTO;
+import com.br.finance.model.dto.CategoryReducedDTO;
 import com.br.finance.model.dto.CategoryResponseDTO;
 import com.br.finance.model.entity.BalanceModel;
 import com.br.finance.model.entity.CategoryModel;
@@ -64,6 +65,27 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO(model);
         categoryResponseDTO.setTotalSpend(calcTotalSpend(lsBalance));
         return categoryResponseDTO;
+    }
+
+    @Override
+    public List<CategoryReducedDTO> findByAll() {
+        List<CategoryReducedDTO> lsCategoriesResponse = new ArrayList<>();
+        log.info("[1] - Search all categories in the database.");
+        final List<CategoryModel> lsCategories = repository.findAll();
+
+        lsCategories.stream().forEach(category -> {
+            log.info("[2] - Search all balances in the database.");
+            List<BalanceModel> lsBalance = balanceRepository.findByIdCategory(category.getId());
+            category.setLsBalance(lsBalance);
+
+            log.info("[3] - Calculating total spend.");
+            CategoryReducedDTO categoryReducedDTO = new CategoryReducedDTO(category);
+            categoryReducedDTO.setTotalSpend(calcTotalSpend(lsBalance));
+
+            lsCategoriesResponse.add(categoryReducedDTO);
+        });
+
+        return lsCategoriesResponse;
     }
 
     private Boolean validatitionCategoryByName(final String categoryName){

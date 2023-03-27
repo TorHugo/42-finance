@@ -1,8 +1,11 @@
 package com.br.finance.service;
 
 import com.br.finance.model.dto.CategoryDTO;
+import com.br.finance.model.dto.CategoryReducedDTO;
 import com.br.finance.model.dto.CategoryResponseDTO;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * The interface Category service.
@@ -27,4 +30,13 @@ public interface CategoryService {
      * @return {@link CategoryResponseDTO}
      */
     CategoryResponseDTO findById(final Long idCategory);
+
+    /**
+     * <h2>
+     * Method responsible for retrieving all <b><i>categories</i></b>.
+     * </h2>
+     *
+     * @return {@link CategoryReducedDTO}
+     */
+    List<CategoryReducedDTO> findByAll();
 }

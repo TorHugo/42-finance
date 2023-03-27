@@ -1,12 +1,15 @@
 package com.br.finance.resource;
 
 import com.br.finance.model.dto.CategoryDTO;
+import com.br.finance.model.dto.CategoryReducedDTO;
 import com.br.finance.model.dto.CategoryResponseDTO;
 import com.br.finance.service.CategoryService;
 import com.br.finance.util.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -30,5 +33,11 @@ public class CategoryResource {
              @PathVariable final Long idCategory){
         CategoryResponseDTO categoryResponseDTO = service.findById(idCategory);
         return ResponseEntity.status(response.created).body(categoryResponseDTO);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<CategoryReducedDTO>> findAll(){
+        List<CategoryReducedDTO> lsCategoryResponse = service.findByAll();
+        return ResponseEntity.status(response.created).body(lsCategoryResponse);
     }
 }
