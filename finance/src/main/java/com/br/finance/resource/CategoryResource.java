@@ -6,13 +6,10 @@ import com.br.finance.service.CategoryService;
 import com.br.finance.util.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 public class CategoryResource {
 
     @Autowired
@@ -25,6 +22,13 @@ public class CategoryResource {
     public ResponseEntity<CategoryResponseDTO> createdCategory(
             @RequestBody final CategoryDTO dto) {
         CategoryResponseDTO categoryResponseDTO = service.saved(dto);
+        return ResponseEntity.status(response.created).body(categoryResponseDTO);
+    }
+
+    @GetMapping("/{idCategory}")
+    public ResponseEntity<CategoryResponseDTO> findById(
+             @PathVariable final Long idCategory){
+        CategoryResponseDTO categoryResponseDTO = service.findById(idCategory);
         return ResponseEntity.status(response.created).body(categoryResponseDTO);
     }
 }

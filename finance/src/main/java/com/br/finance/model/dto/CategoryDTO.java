@@ -1,6 +1,7 @@
 package com.br.finance.model.dto;
 
 import com.br.finance.model.entity.CategoryModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,7 +13,9 @@ public class CategoryDTO {
     private String name;
     private String description;
     private BigDecimal monthlyBudget;
+    @JsonIgnore
     private LocalDateTime dateInclusion;
+    @JsonIgnore
     private LocalDateTime dateUpdate;
 
     public CategoryDTO(CategoryModel model){

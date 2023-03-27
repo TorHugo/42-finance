@@ -6,6 +6,7 @@ import com.br.finance.model.dto.CategoryDTO;
 import com.br.finance.model.dto.CategoryResponseDTO;
 import com.br.finance.model.entity.BalanceModel;
 import com.br.finance.model.entity.CategoryModel;
+import com.br.finance.model.enums.TypeBalance;
 import com.br.finance.repository.BalanceRepository;
 import com.br.finance.repository.CategoryRepository;
 import com.br.finance.service.CategoryService;
@@ -59,8 +60,10 @@ public class CategoryServiceImpl implements CategoryService {
         List<BalanceModel> lsBalance = balanceRepository.findByIdCategory(idCategory);
         model.setLsBalance(lsBalance);
 
-        calcTotalSpend(lsBalance);
-        return new CategoryResponseDTO(model);
+        log.info("[3] - Calculating total spend.");
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO(model);
+        categoryResponseDTO.setTotalSpend(calcTotalSpend(lsBalance));
+        return categoryResponseDTO;
     }
 
     private Boolean validatitionCategoryByName(final String categoryName){
@@ -71,17 +74,31 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private BigDecimal calcTotalSpend(final List<BalanceModel> lsBalance){
-        BigDecimal total = null;
-        List<BigDecimal> lsBigDecimal = new ArrayList<BigDecimal>();
+        List<BigDecimal> lsValuesPayIn = new ArrayList<>();
+        List<BigDecimal> lsValuesPayOut = new ArrayList<>();
+        BigDecimal totalValuePayIn = BigDecimal.ZERO;
+        BigDecimal totalValuePayOut = BigDecimal.ZERO;
 
-        lsBalance.stream().forEach(balance -> {
-            lsBigDecimal.add(balance.getBalanceValue());
+        lsBalance.forEach(balance -> {
+            if (Objects.equals(balance.getTypeBalance(), TypeBalance.PAYIN))
+                lsValuesPayIn.add(balance.getBalanceValue());
+            else
+                lsValuesPayOut.add(balance.getBalanceValue());
         });
 
-        for (BigDecimal valor : lsBigDecimal) {
-            total = total.add(valor);
+        for (BigDecimal valor : lsValuesPayIn) {
+            totalValuePayIn = totalValuePayIn.add(valor);
         }
 
-        return total;
+        for (BigDecimal valor : lsValuesPayOut) {
+            totalValuePayOut = totalValuePayOut.add(valor);
+        }
+
+        BigDecimal totalValue = totalValuePayIn.subtract(totalValuePayOut);
+        if (totalValue.signum() == -1) {
+            return BigDecimal.ZERO;
+        }
+
+        return totalValuePayIn.subtract(totalValuePayOut);
     }
 }

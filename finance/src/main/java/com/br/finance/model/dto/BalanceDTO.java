@@ -4,6 +4,8 @@ import com.br.finance.model.entity.BalanceModel;
 import com.br.finance.model.entity.CategoryModel;
 import com.br.finance.model.enums.TypeBalance;
 import com.br.finance.model.enums.TypePayment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.JoinColumn;
@@ -23,7 +25,9 @@ public class BalanceDTO {
     private Long idCategory;
     private TypeBalance typeBalance;
     private TypePayment typePayment;
+    @JsonIgnore
     private LocalDateTime dateInclusion;
+    @JsonIgnore
     private LocalDateTime dateUpdate;
 
     public BalanceDTO(BalanceModel model){

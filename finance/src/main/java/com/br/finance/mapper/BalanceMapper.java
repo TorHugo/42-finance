@@ -21,7 +21,6 @@ public class BalanceMapper {
         model.setDateInclusion(LocalDateTime.now());
         model.setDateUpdate(Objects.isNull(dto.getDateUpdate()) ? null : LocalDateTime.now());
 
-        System.out.println(model.toString());
         return model;
     }
 }
