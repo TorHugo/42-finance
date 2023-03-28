@@ -26,5 +26,7 @@ public class CategoryReducedDTO {
         this.totalSpend = totalSpend;
     }
 
-    public CategoryReducedDTO(){    }
+    public CategoryReducedDTO(){
+
+    }
 }
