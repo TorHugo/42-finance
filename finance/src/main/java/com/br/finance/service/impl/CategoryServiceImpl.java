@@ -50,7 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
         return new CategoryResponseDTO(model);
     }
 
-
     @Override
     public CategoryResponseDTO findById(final Long idCategory) {
         log.info("[1] - Search category in the database. idCategory: {}", idCategory);

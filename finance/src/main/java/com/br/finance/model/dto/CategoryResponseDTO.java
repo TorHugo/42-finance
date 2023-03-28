@@ -18,4 +18,5 @@ public class CategoryResponseDTO extends CategoryDTO{
         this.totalSpend = model.getTotalSpend();
         this.lsBalance = model.getLsBalance();
     }
+
 }
