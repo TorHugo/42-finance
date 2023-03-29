@@ -4,6 +4,7 @@ import com.br.finance.model.entity.BalanceModel;
 import com.br.finance.model.entity.CategoryModel;
 import com.br.finance.model.enums.TypeBalance;
 import com.br.finance.model.enums.TypePayment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -25,9 +26,9 @@ public class BalanceDTO {
     private Long idCategory;
     private TypeBalance typeBalance;
     private TypePayment typePayment;
-    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateInclusion;
-    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateUpdate;
 
     public BalanceDTO(BalanceModel model){

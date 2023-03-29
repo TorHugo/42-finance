@@ -18,10 +18,9 @@ public class DebtDTO {
     private Float monthInterest;
 
     private LocalDate dateDue;
-    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateInclusion;
-
-    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateUpdate;
 
     public DebtDTO(DebtModel model){

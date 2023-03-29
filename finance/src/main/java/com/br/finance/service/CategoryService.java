@@ -39,4 +39,22 @@ public interface CategoryService {
      * @return {@link CategoryReducedDTO}
      */
     List<CategoryReducedDTO> findByAll();
+    /**
+     * <h2>
+     * Method responsible for deleting  <b><i>categories</i></b>.
+     * </h2>
+     *
+     * @param idCategory
+     */
+    void delete(final Long idCategory);
+    /**
+     * <h2>
+     * Method responsible for updateting  <b><i>Category</i></b>.
+     * </h2>
+     *
+     * @param idCategory
+     * @param categoryDTO
+     * @return {@link CategoryDTO}
+     */
+    CategoryDTO update(final Long idCategory, final CategoryDTO categoryDTO);
 }

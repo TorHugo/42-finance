@@ -87,6 +87,28 @@ public class CategoryServiceImpl implements CategoryService {
         return lsCategoriesResponse;
     }
 
+    @Override
+    public void delete(final Long idCategory) {
+        log.info("1. Searching balance by id: {} in database.", idCategory);
+        CategoryModel recuperedCategpry = repository.findById(idCategory)
+                .orElseThrow(() -> new DataBaseException("Entity not found!"));
+
+        log.info("2. Deleting balance by id: {}.", idCategory);
+        repository.delete(recuperedCategpry);
+    }
+
+    @Override
+    public CategoryDTO update(final Long idCategory, final CategoryDTO categoryDTO) {
+        log.info("1. Searching balance by id: {} in database.", idCategory);
+        CategoryModel recuperedCategory = repository.findById(idCategory)
+                .orElseThrow(() -> new DataBaseException("Entity not found!"));
+        log.info("2. Mapping new category.");
+        CategoryModel newCategory = mapper.mapper(recuperedCategory, categoryDTO);
+        log.info("3. Saving new category in the database. newCategory: {}", newCategory.toString());
+        repository.save(newCategory);
+        return new CategoryDTO(newCategory);
+    }
+
     private Boolean validatitionCategoryByName(final String categoryName){
         Optional<CategoryModel> optCategory = repository.findByName(categoryName);
         if (optCategory.isPresent())

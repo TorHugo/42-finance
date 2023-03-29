@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,5 +40,21 @@ public class CategoryResource {
     public ResponseEntity<List<CategoryReducedDTO>> findAll(){
         List<CategoryReducedDTO> lsCategoryResponse = service.findByAll();
         return ResponseEntity.status(response.created).body(lsCategoryResponse);
+    }
+
+    @PutMapping("/{idCategory}")
+    public ResponseEntity<CategoryDTO> update(
+            @RequestBody @Valid final CategoryDTO dto,
+            @PathVariable final Long idCategory){
+
+        CategoryDTO categoryDTO = service.update(idCategory, dto);
+        return ResponseEntity.status(response.created).body(categoryDTO);
+    }
+
+    @DeleteMapping(value = "/{idCategory}")
+    public ResponseEntity<CategoryDTO> delete(
+            @PathVariable final Long idCategory){
+        service.delete(idCategory);
+        return ResponseEntity.status(response.noContent).build();
     }
 }

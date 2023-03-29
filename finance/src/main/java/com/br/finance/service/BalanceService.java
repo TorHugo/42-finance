@@ -13,7 +13,7 @@ public interface BalanceService {
     /**
      * <h2>Method responsible for saving a new <b><i>Balance</i></b>.</h2>
      *
-     * @param categoryDTO the category dto
+     * @param balanceDTO the category dto
      * @return {@link BalanceDTO}
      */
     BalanceDTO saved (final BalanceDTO balanceDTO);

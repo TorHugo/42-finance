@@ -22,4 +22,15 @@ public class CategoryMapper {
 
         return model;
     }
+
+    public CategoryModel mapper(final CategoryModel recuperedCategory, final CategoryDTO dto) {
+        CategoryModel model = new CategoryModel();
+        model.setId(Objects.isNull(dto.getId()) ? recuperedCategory.getId() : dto.getId());
+        model.setName(Objects.isNull(dto.getName()) ? recuperedCategory.getName() : dto.getName());
+        model.setDescription(Objects.isNull(dto.getDescription()) ? recuperedCategory.getDescription() : dto.getDescription());
+        model.setMonthlyBudget(Objects.isNull(dto.getMonthlyBudget()) ? recuperedCategory.getMonthlyBudget() : dto.getMonthlyBudget());
+        model.setDateInclusion(Objects.isNull(dto.getDateInclusion()) ? recuperedCategory.getDateInclusion() : dto.getDateInclusion());
+        model.setDateUpdate(LocalDateTime.now());
+        return model;
+    }
 }

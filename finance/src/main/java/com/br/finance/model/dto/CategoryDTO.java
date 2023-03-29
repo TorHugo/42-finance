@@ -1,6 +1,7 @@
 package com.br.finance.model.dto;
 
 import com.br.finance.model.entity.CategoryModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -13,9 +14,9 @@ public class CategoryDTO {
     private String name;
     private String description;
     private BigDecimal monthlyBudget;
-    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateInclusion;
-    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateUpdate;
 
     public CategoryDTO(CategoryModel model){
