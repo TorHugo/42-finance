@@ -26,7 +26,6 @@ public class DebtServiceImpl implements DebtService {
     private DebtMapper mapper;
 
     @Override
-    @Transactional
     public DebtResponseDTO saved(DebtDTO debtDTO) {
         log.info("[1] - Mapping debt.");
         DebtModel model = mapper.mapper(debtDTO);
@@ -50,7 +49,6 @@ public class DebtServiceImpl implements DebtService {
     }
 
     @Override
-    @Transactional
     public DebtDTO update(Long idDebt, DebtDTO dto) {
         log.info("[1] - Search debt in the database. idDebt: {}", idDebt);
         DebtModel debt = repository.getReferenceById(idDebt);
@@ -65,7 +63,6 @@ public class DebtServiceImpl implements DebtService {
     }
 
     @Override
-    @Transactional
     public void delete(Long idDebt) {
         log.info("[1] - Delete debt in the database by id. idDebt: {}", idDebt);
         repository.deleteById(idDebt);
