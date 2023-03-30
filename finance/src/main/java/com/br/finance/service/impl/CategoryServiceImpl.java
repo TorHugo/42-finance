@@ -89,17 +89,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(final Long idCategory) {
-        log.info("[1]. Searching balance by id: {} in database.", idCategory);
+        log.info("[1]. Searching category by id: {} in database.", idCategory);
         CategoryModel recuperedCategpry = repository.findById(idCategory)
                 .orElseThrow(() -> new DataBaseException("Entity not found!"));
 
-        log.info("[2]. Deleting balance by id: {}.", idCategory);
+        log.info("[2]. Deleting category by id: {}.", idCategory);
         repository.delete(recuperedCategpry);
     }
 
     @Override
     public CategoryDTO update(final Long idCategory, final CategoryDTO categoryDTO) {
-        log.info("[1]. Searching balance by id: {} in database.", idCategory);
+        log.info("[1]. Searching category by id: {} in database.", idCategory);
         CategoryModel recuperedCategory = repository.findById(idCategory)
                 .orElseThrow(() -> new DataBaseException("Entity not found!"));
         log.info("[2]. Mapping new category.");

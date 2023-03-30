@@ -4,6 +4,7 @@ import com.br.finance.exception.impl.DataBaseException;
 import com.br.finance.mapper.BalanceMapper;
 import com.br.finance.model.dto.BalanceDTO;
 import com.br.finance.model.dto.BalanceResponseDTO;
+import com.br.finance.model.dto.CategoryDTO;
 import com.br.finance.model.dto.CategoryResponseDTO;
 import com.br.finance.model.entity.BalanceModel;
 import com.br.finance.model.entity.CategoryModel;
@@ -66,6 +67,28 @@ public class BalanceServiceImpl implements BalanceService {
         BalanceModel model = repository.findById(idBalance)
                 .orElseThrow(() -> new DataBaseException("Entity not found!"));
         return new BalanceDTO(model);
+    }
+
+    @Override
+    public BalanceDTO update(final Long idBalance, final BalanceDTO balanceDTO) {
+        log.info("[1]. Searching balance by id: {} in database.", idBalance);
+        BalanceModel recuperedBalance = repository.findById(idBalance)
+                .orElseThrow(() -> new DataBaseException("Entity not found!"));
+        log.info("[2]. Mapping new category.");
+        BalanceModel newBalance = mapper.mapper(recuperedBalance, balanceDTO);
+        log.info("[3]. Saving new category in the database. newCategory: {}", newBalance.toString());
+        repository.save(newBalance);
+        return new BalanceDTO(newBalance);
+    }
+
+    @Override
+    public void delete(final Long idBalance) {
+        log.info("[1]. Searching balance by id: {} in database.", idBalance);
+        BalanceModel recuperedBalance = repository.findById(idBalance)
+                .orElseThrow(() -> new DataBaseException("Entity not found!"));
+
+        log.info("[2]. Deleting balance by id: {}.", idBalance);
+        repository.delete(recuperedBalance);
     }
 
     private Boolean validatitionCategoryById(final Long idCategory){
