@@ -7,10 +7,9 @@ import com.br.finance.service.UserService;
 import com.br.finance.util.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,6 +26,18 @@ public class UserResource {
     public ResponseEntity<List<UserDTO>> findAll() {
         List<UserDTO> users = service.findAll();
         return ResponseEntity.status(response.successful).body(users);
+    }
+
+    @GetMapping("{idUser}")
+    public ResponseEntity<UserDTO> findById(@PathVariable @Valid Long idUser) {
+        UserDTO user = service.findById(idUser);
+        return ResponseEntity.status(response.successful).body(user);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> createdUser(@RequestBody final UserDTO dto){
+        UserDTO user = service.saved(dto);
+        return ResponseEntity.status(response.created).body(dto);
     }
 
 }
