@@ -35,9 +35,14 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createdUser(@RequestBody final UserDTO dto){
+    public ResponseEntity<UserDTO> createdUser(@RequestBody final UserDTO dto) {
         UserDTO user = service.saved(dto);
         return ResponseEntity.status(response.created).body(dto);
     }
 
+    @DeleteMapping("{idUser}")
+    public ResponseEntity<Void> delete(@PathVariable Long idUser) {
+        service.delete(idUser);
+        return ResponseEntity.status(response.noContent).build();
+    }
 }

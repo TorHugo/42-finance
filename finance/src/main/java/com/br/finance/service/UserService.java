@@ -35,4 +35,13 @@ public interface UserService {
      */
     UserDTO saved(final UserDTO userDTO);
 
+    /**
+     * <h2>
+     * Method responsible for delete user by <b><i>idUser</i></b>.
+     * </h2>
+     *
+     * @param idUser the id debt.
+     */
+    void delete(final Long idUser);
+
 }

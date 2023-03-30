@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
         return new UserDTO(model);
     }
 
+    @Override
+    public void delete(Long idUser) {
+        log.info("[1] - Delete user in the database by id. idUser: {}", idUser);
+        repository.deleteById(idUser);
+    }
 }

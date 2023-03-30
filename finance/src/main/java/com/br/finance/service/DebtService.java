@@ -54,8 +54,7 @@ public interface DebtService {
      * Method responsible for delete debt by <b><i>idDebt</i></b>.
      * </h2>
      *
-     * @param idDebt the id debt.
-     * @return {@link DebtDTO}
+     * @param idDebt the id debt
      */
     void delete(final Long idDebt);
 
