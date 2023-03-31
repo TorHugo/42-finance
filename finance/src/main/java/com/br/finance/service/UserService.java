@@ -37,6 +37,18 @@ public interface UserService {
 
     /**
      * <h2>
+     * Method responsible for update user by <b><i>idUser</i></b>.
+     * </h2>
+     *
+     * @param idUser the id user.
+     * @param dto the dto user.
+     * @return {@link UserDTO}
+     */
+    UserDTO update(final Long idUser, final UserDTO dto);
+
+
+    /**
+     * <h2>
      * Method responsible for delete user by <b><i>idUser</i></b>.
      * </h2>
      *

@@ -53,6 +53,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO update(Long idUser, UserDTO dto) {
+        log.info("[1] - Search debt in the database. idUser: {}", idUser);
+        UserModel user = repository.getReferenceById(idUser);
+        log.info("[2] - Mapping for debtModel.");
+        UserModel model = mapper.mapper(dto);
+        log.info("[3] - Save user in the database");
+        repository.save(model);
+        return new UserDTO(model);
+    }
+
+    @Override
     public void delete(Long idUser) {
         log.info("[1] - Delete user in the database by id. idUser: {}", idUser);
         repository.deleteById(idUser);

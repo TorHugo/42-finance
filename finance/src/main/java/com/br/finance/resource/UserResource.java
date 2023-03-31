@@ -1,6 +1,8 @@
 package com.br.finance.resource;
 
+import com.br.finance.model.dto.DebtDTO;
 import com.br.finance.model.dto.UserDTO;
+import com.br.finance.model.entity.DebtModel;
 import com.br.finance.model.entity.UserModel;
 import com.br.finance.repository.UserRepository;
 import com.br.finance.service.UserService;
@@ -37,6 +39,13 @@ public class UserResource {
     @PostMapping
     public ResponseEntity<UserDTO> createdUser(@RequestBody final UserDTO dto) {
         UserDTO user = service.saved(dto);
+        return ResponseEntity.status(response.created).body(dto);
+    }
+
+    @PutMapping("{idUser}")
+    public ResponseEntity<UserDTO> update(@PathVariable Long idUser, @RequestBody UserDTO dto){
+
+        UserDTO user = service.update(idUser, dto);
         return ResponseEntity.status(response.created).body(dto);
     }
 

@@ -4,6 +4,9 @@ import com.br.finance.model.dto.UserDTO;
 import com.br.finance.model.entity.UserModel;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 @Component
 public class UserMapper {
 
@@ -13,7 +16,8 @@ public class UserMapper {
         model.setName(dto.getName());
         model.setPassword(dto.getPassword());
         model.setTelephone(dto.getTelephone());
-
+        model.setDateInclusion(LocalDateTime.now());
+        model.setDateUpdate(Objects.isNull(dto.getDateUpdate()) ? null : LocalDateTime.now());
         return model;
     }
 }
