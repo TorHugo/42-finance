@@ -1,6 +1,8 @@
 package com.br.finance.resource;
 
+import com.br.finance.model.dto.CategoryDTO;
 import com.br.finance.model.dto.DebtDTO;
+import com.br.finance.model.dto.DebtResponseDTO;
 import com.br.finance.model.dto.UserDTO;
 import com.br.finance.model.entity.DebtModel;
 import com.br.finance.model.entity.UserModel;
@@ -38,15 +40,14 @@ public class UserResource {
 
     @PostMapping
     public ResponseEntity<UserDTO> createdUser(@RequestBody final UserDTO dto) {
-        UserDTO user = service.saved(dto);
-        return ResponseEntity.status(response.created).body(dto);
+        UserDTO userDTO = service.saved(dto);
+        return ResponseEntity.status(response.created).body(userDTO);
     }
 
     @PutMapping("{idUser}")
     public ResponseEntity<UserDTO> update(@PathVariable Long idUser, @RequestBody UserDTO dto){
-
-        UserDTO user = service.update(idUser, dto);
-        return ResponseEntity.status(response.created).body(dto);
+        UserDTO userDTO = service.update(idUser, dto);
+        return ResponseEntity.status(response.created).body(userDTO);
     }
 
     @DeleteMapping("{idUser}")

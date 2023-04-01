@@ -36,8 +36,8 @@ public class DebtResource {
     @PostMapping
     public ResponseEntity<DebtResponseDTO> createdDebt(@RequestBody final DebtDTO dto){
         System.out.println(dto.toString());
-        DebtResponseDTO debtReponseDTO = service.saved(dto);
-        return ResponseEntity.status(response.created).body(debtReponseDTO);
+        DebtResponseDTO debtResponseDTO = service.saved(dto);
+        return ResponseEntity.status(response.created).body(debtResponseDTO);
     }
 
     @PutMapping("/{idDebt}")
